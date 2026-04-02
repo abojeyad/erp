@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart ERP | الدليل الصوتي</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --wa-blue: #34B7F1;
+            --wa-green: #25D366;
+            --text-main: #111b21;
+            --bg-light: #f4f7f9;
+            --border-gray: #d1d7db;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-bottom: 1px solid #e9edef;
+        }
+
+        .logo { font-size: 2.2rem; font-weight: 700; color: var(--wa-blue); }
+        h1 { font-size: 1.5rem; color: #075E54; margin: 10px 0; }
+        .subtitle { color: #667781; max-width: 600px; margin: 0 auto; font-size: 1rem; }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1.5px solid var(--border-gray);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        .package-card.recommended {
+            border: 2.5px solid var(--wa-green);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.15);
+            transform: scale(1.02);
+        }
+
+        .rec-tag {
+            background: var(--wa-green);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .card-content { padding: 25px; flex-grow: 1; }
+        .package-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .package-desc { font-size: 0.9rem; color: #54656f; line-height: 1.6; margin-bottom: 25px; }
+
+        .audio-wrapper {
+            background: #f8f9fa;
+            border-radius: 50px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .play-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--wa-blue);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .waves-area {
+            flex-grow: 1;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .bar { flex: 1; background: #d1d7db; height: 60%; border-radius: 1px; min-width: 2px; pointer-events: none; }
+        .bar.active { background: var(--wa-blue); }
+
+        .time-left { 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            color: #4a5568; 
+            min-width: 40px; 
+            text-align: left;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* تنسيق زر السرعة الجديد */
+        .speed-btn {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 12px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #4a5568;
+            cursor: pointer;
+            min-width: 35px;
+            transition: 0.2s;
+        }
+        .speed-btn:hover { background: #cbd5e0; }
+
+        .sales-section {
+            background: #fff;
+            padding: 50px 20px;
+            border-top: 1px solid #e9edef;
+            text-align: center;
+        }
+
+        .sales-title { font-size: 1.4rem; font-weight: 700; color: #075E54; margin-bottom: 30px; }
+
+        .sales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .sales-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border: 2px solid var(--wa-green);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .sales-btn:hover {
+            background: var(--wa-green);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .sales-btn i { font-size: 1.6rem; }
+        .sales-name { font-size: 1rem; }
+
+        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.85rem; }
+
+        @media (max-width: 480px) {
+            .package-card.recommended { transform: scale(1); }
+            .sales-btn { padding: 12px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Smart ERP</div>
+    <h1>دليل صوتي لاختيار الباقة المناسبة</h1>
+    <p class="subtitle">استمع إلى المقاطع الصوتية، نلخص لك الفرق بين الباقات خلال أقل من دقيقة لتختار الأنسب لك بسهولة.</p>
+</header>
+
+<div class="container">
+    <div class="packages-grid" id="grid"></div>
+
+    <div class="sales-section">
+        <div class="sales-title">تواصل مع مستشار المبيعات واحصل على نسخة مجانية</div>
+        <div class="sales-grid">
+            <a href="https://wa.me/966568954677" target="_blank" class="sales-btn">
+                <div class="sales-name">أنس الجهمي</div>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://wa.me/966569173637" target="_blank" class="sales-btn">
+                <div class="sales-name">طلال المصباحي</div>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://wa.me/966565225891" target="_blank" class="sales-btn">
+                <div class="sales-name">مختار الشرعبي</div>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://wa.me/966548536028" target="_blank" class="sales-btn">
+                <div class="sales-name">عبدالحليم حافظ</div>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://wa.me/966565357699" target="_blank" class="sales-btn">
+                <div class="sales-name">أحمد يسري</div>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - Smart ERP</p>
+</footer>
+
+<script>
+    const data = [
+        { id: 0, name: "الباقة الأولى (MINI)", desc: "مناسبة للأنشطة الصغيرة التي تحتاج إصدار فواتير ضريبية مبسطة وإدارة مبيعات أساسية.", audio: "audio1.m4a", rec: false },
+        { id: 1, name: "الباقة الأساسية (POS)", desc: " مناسبة للمنشآت التي تحتاج نظام محاسبي مع إدارة المخزون ونقاط البيع والعملاء والموردين.", audio: "audio2.m4a", rec: true },
+        { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مناسبة للمنشآت المتوسطة والكبيرة تحتوي على كل ما هو متوفر في الباقة الأساسية مع حسابات متقدمة وقوائم مالية.", audio: "audio3.m4a", rec: false },
+        { id: 3, name: "الباقة الكاملة (PRO)", desc: "مناسبة للشركات التي تحتاج نظام متكامل يشمل المحاسبة والموارد البشرية وإدارة شاملة.", audio: "audio4.m4a", rec: false }
+    ];
+
+    function render() {
+        const grid = document.getElementById('grid');
+        data.forEach(pkg => {
+            let waves = "";
+            for(let i=0; i<45; i++) {
+                let h = Math.floor(Math.random() * 18) + 4;
+                waves += `<div class="bar" style="height:${h}px"></div>`;
+            }
+
+            grid.innerHTML += `
+                <div class="package-card ${pkg.rec ? 'recommended' : ''}">
+                    ${pkg.rec ? '<div class="rec-tag"><i class="fas fa-thumbs-up"></i> الخيار الموصى به</div>' : ''}
+                    <div class="card-content">
+                        <div class="package-name">${pkg.name}</div>
+                        <p class="package-desc">${pkg.desc}</p>
+                        <div class="audio-wrapper" id="row-${pkg.id}">
+                            <audio id="audio-${pkg.id}" src="${pkg.audio}" preload="metadata"></audio>
+                            <button class="play-btn" onclick="playAudio(${pkg.id})"><i class="fas fa-play"></i></button>
+                            <div class="waves-area" onclick="seekAudio(event, ${pkg.id})">${waves}</div>
+                            <div class="time-left" id="time-${pkg.id}">0:00</div>
+                            <button class="speed-btn" id="speed-${pkg.id}" onclick="toggleSpeed(${pkg.id})">1x</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const audio = document.getElementById(`audio-${pkg.id}`);
+            audio.addEventListener('loadedmetadata', () => {
+                document.getElementById(`time-${pkg.id}`).innerText = format(audio.duration);
+            });
+        });
+    }
+
+    function toggleSpeed(id) {
+        const audio = document.getElementById(`audio-${id}`);
+        const speedBtn = document.getElementById(`speed-${id}`);
+        if (audio.playbackRate === 1) {
+            audio.playbackRate = 2;
+            speedBtn.innerText = "2x";
+            speedBtn.style.color = "var(--wa-blue)";
+        } else {
+            audio.playbackRate = 1;
+            speedBtn.innerText = "1x";
+            speedBtn.style.color = "#4a5568";
+        }
+    }
+
+    function seekAudio(e, id) {
+        const audio = document.getElementById(`audio-${id}`);
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left; 
+        const width = rect.width;
+        const percentage = x / width;
+        audio.currentTime = percentage * audio.duration;
+    }
+
+    function playAudio(id) {
+        const audio = document.getElementById(`audio-${id}`);
+        const allAudios = document.querySelectorAll('audio');
+        const btnIcon = document.querySelector(`#row-${id} .play-btn i`);
+        const bars = document.querySelectorAll(`#row-${id} .bar`);
+
+        allAudios.forEach((a, index) => {
+            if (index !== id) {
+                a.pause(); a.currentTime = 0;
+                a.playbackRate = 1; // إعادة السرعة للوضع الطبيعي عند التغيير
+                document.getElementById(`speed-${index}`).innerText = "1x";
+                document.querySelectorAll('.play-btn i')[index].className = 'fas fa-play';
+                document.querySelectorAll(`#row-${index} .bar`).forEach(b => b.classList.remove('active'));
+                if(!isNaN(a.duration)) document.getElementById(`time-${index}`).innerText = format(a.duration);
+            }
+        });
+
+        if (audio.paused) {
+            audio.play();
+            btnIcon.className = 'fas fa-pause';
+        } else {
+            audio.pause();
+            btnIcon.className = 'fas fa-play';
+        }
+
+        audio.ontimeupdate = () => {
+            const rem = Math.max(0, audio.duration - audio.currentTime);
+            document.getElementById(`time-${id}`).innerText = format(rem);
+            const progress = (audio.currentTime / audio.duration) * bars.length;
+            bars.forEach((b, i) => b.classList.toggle('active', i < progress));
+        };
+
+        audio.onended = () => {
+            btnIcon.className = 'fas fa-play';
+            bars.forEach(b => b.classList.remove('active'));
+            document.getElementById(`time-${id}`).innerText = format(audio.duration);
+        };
+    }
+
+    function format(s) {
+        if (isNaN(s) || s === Infinity) return "0:00";
+        let m = Math.floor(s / 60);
+        let sec = Math.floor(s % 60);
+        return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    window.onload = render;
+</script>
+
+</body>
+</html>
