@@ -15,7 +15,6 @@
             --text-main: #111b21;
             --bg-light: #f4f7f9;
             --border-gray: #d1d7db;
-            /* اللون الجديد المطور للأزرار */
             --btn-premium: #075E54; 
         }
 
@@ -112,7 +111,7 @@
             gap: 2px;
             overflow: hidden;
             cursor: pointer;
-            touch-action: none; /* لمنع سحب المتصفح أثناء السحب على الصوت */
+            touch-action: none;
         }
 
         .bar { flex: 1; background: #d1d7db; height: 60%; border-radius: 1px; min-width: 2px; pointer-events: none; }
@@ -141,52 +140,10 @@
         }
         .speed-btn:hover { background: #cbd5e0; }
 
-        /* قسم مستشاري المبيعات المطور */
-        .sales-section {
-            background: #fff;
-            padding: 50px 20px;
-            border-top: 1px solid #e9edef;
-            text-align: center;
-        }
-
-        .sales-title { font-size: 1.4rem; font-weight: 700; color: #075E54; margin-bottom: 30px; }
-
-        .sales-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .sales-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--btn-premium);
-            color: #fff;
-            text-decoration: none;
-            padding: 18px 22px;
-            border-radius: 18px;
-            font-weight: 600;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(7, 94, 84, 0.15);
-        }
-
-        .sales-btn:hover {
-            background: var(--wa-green);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
-        }
-
-        .sales-btn i { font-size: 1.8rem; }
-        .sales-name { font-size: 1.05rem; letter-spacing: 0.3px; }
-
-        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.85rem; }
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e9edef; background: #fff; }
 
         @media (max-width: 480px) {
             .package-card.recommended { transform: scale(1); }
-            .sales-btn { padding: 15px 18px; }
         }
     </style>
 </head>
@@ -200,32 +157,6 @@
 
 <div class="container">
     <div class="packages-grid" id="grid"></div>
-
-    <div class="sales-section">
-        <div class="sales-title">تواصل مع مستشار المبيعات واحصل على نسخة مجانية</div>
-        <div class="sales-grid">
-            <a href="https://wa.me/966568954677" target="_blank" class="sales-btn">
-                <div class="sales-name">أنس الجهمي</div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://wa.me/966569173637" target="_blank" class="sales-btn">
-                <div class="sales-name">طلال المصباحي</div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://wa.me/966565225891" target="_blank" class="sales-btn">
-                <div class="sales-name">مختار الشرعبي</div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://wa.me/966548536028" target="_blank" class="sales-btn">
-                <div class="sales-name">عبدالحليم حافظ</div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://wa.me/966565357699" target="_blank" class="sales-btn">
-                <div class="sales-name">أحمد يسري</div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
-    </div>
 </div>
 
 <footer>
@@ -284,7 +215,6 @@
         });
     }
 
-    // منطق السحب (Drag) المطور
     function startDrag(e, id) {
         isDragging = true;
         seekAudio(e, id);
@@ -300,6 +230,7 @@
 
     function seekAudio(e, id) {
         const audio = document.getElementById(`audio-${id}`);
+        if (!audio.duration) return;
         const area = document.querySelector(`#row-${id} .waves-area`);
         const rect = area.getBoundingClientRect();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
