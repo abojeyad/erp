@@ -15,6 +15,8 @@
             --text-main: #111b21;
             --bg-light: #f4f7f9;
             --border-gray: #d1d7db;
+            /* اللون الجديد المطور للأزرار */
+            --btn-premium: #075E54; 
         }
 
         body {
@@ -110,6 +112,7 @@
             gap: 2px;
             overflow: hidden;
             cursor: pointer;
+            touch-action: none; /* لمنع سحب المتصفح أثناء السحب على الصوت */
         }
 
         .bar { flex: 1; background: #d1d7db; height: 60%; border-radius: 1px; min-width: 2px; pointer-events: none; }
@@ -124,7 +127,6 @@
             font-variant-numeric: tabular-nums;
         }
 
-        /* تنسيق زر السرعة الجديد */
         .speed-btn {
             background: #e2e8f0;
             border: none;
@@ -139,6 +141,7 @@
         }
         .speed-btn:hover { background: #cbd5e0; }
 
+        /* قسم مستشاري المبيعات المطور */
         .sales-section {
             background: #fff;
             padding: 50px 20px;
@@ -160,30 +163,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #fff;
-            border: 2px solid var(--wa-green);
-            color: var(--text-main);
+            background: var(--btn-premium);
+            color: #fff;
             text-decoration: none;
-            padding: 15px 20px;
-            border-radius: 15px;
+            padding: 18px 22px;
+            border-radius: 18px;
             font-weight: 600;
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(7, 94, 84, 0.15);
         }
 
         .sales-btn:hover {
             background: var(--wa-green);
-            color: #fff;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
         }
 
-        .sales-btn i { font-size: 1.6rem; }
-        .sales-name { font-size: 1rem; }
+        .sales-btn i { font-size: 1.8rem; }
+        .sales-name { font-size: 1.05rem; letter-spacing: 0.3px; }
 
         footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.85rem; }
 
         @media (max-width: 480px) {
             .package-card.recommended { transform: scale(1); }
-            .sales-btn { padding: 12px 15px; }
+            .sales-btn { padding: 15px 18px; }
         }
     </style>
 </head>
@@ -232,10 +235,12 @@
 <script>
     const data = [
         { id: 0, name: "الباقة الأولى (MINI)", desc: "مناسبة للأنشطة الصغيرة التي تحتاج إصدار فواتير ضريبية مبسطة وإدارة مبيعات أساسية.", audio: "audio1.m4a", rec: false },
-        { id: 1, name: "الباقة الأساسية (POS)", desc: " مناسبة للمنشآت التي تحتاج نظام محاسبي مع إدارة المخزون ونقاط البيع والعملاء والموردين.", audio: "audio2.m4a", rec: true },
+        { id: 1, name: "الباقة الأساسية (POS)", desc: "مناسبة للمنشآت التي تحتاج نظام محاسبي مع إدارة المخزون ونقاط البيع والعملاء والموردين.", audio: "audio2.m4a", rec: true },
         { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مناسبة للمنشآت المتوسطة والكبيرة تحتوي على كل ما هو متوفر في الباقة الأساسية مع حسابات متقدمة وقوائم مالية.", audio: "audio3.m4a", rec: false },
         { id: 3, name: "الباقة الكاملة (PRO)", desc: "مناسبة للشركات التي تحتاج نظام متكامل يشمل المحاسبة والموارد البشرية وإدارة شاملة.", audio: "audio4.m4a", rec: false }
     ];
+
+    let isDragging = false;
 
     function render() {
         const grid = document.getElementById('grid');
@@ -255,7 +260,16 @@
                         <div class="audio-wrapper" id="row-${pkg.id}">
                             <audio id="audio-${pkg.id}" src="${pkg.audio}" preload="metadata"></audio>
                             <button class="play-btn" onclick="playAudio(${pkg.id})"><i class="fas fa-play"></i></button>
-                            <div class="waves-area" onclick="seekAudio(event, ${pkg.id})">${waves}</div>
+                            <div class="waves-area" 
+                                 onmousedown="startDrag(event, ${pkg.id})" 
+                                 onmousemove="doDrag(event, ${pkg.id})" 
+                                 onmouseup="stopDrag()" 
+                                 onmouseleave="stopDrag()"
+                                 ontouchstart="startDrag(event, ${pkg.id})"
+                                 ontouchmove="doDrag(event, ${pkg.id})"
+                                 ontouchend="stopDrag()">
+                                 ${waves}
+                            </div>
                             <div class="time-left" id="time-${pkg.id}">0:00</div>
                             <button class="speed-btn" id="speed-${pkg.id}" onclick="toggleSpeed(${pkg.id})">1x</button>
                         </div>
@@ -268,6 +282,30 @@
                 document.getElementById(`time-${pkg.id}`).innerText = format(audio.duration);
             });
         });
+    }
+
+    // منطق السحب (Drag) المطور
+    function startDrag(e, id) {
+        isDragging = true;
+        seekAudio(e, id);
+    }
+
+    function doDrag(e, id) {
+        if (isDragging) seekAudio(e, id);
+    }
+
+    function stopDrag() {
+        isDragging = false;
+    }
+
+    function seekAudio(e, id) {
+        const audio = document.getElementById(`audio-${id}`);
+        const area = document.querySelector(`#row-${id} .waves-area`);
+        const rect = area.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        const percentage = x / rect.width;
+        audio.currentTime = percentage * audio.duration;
     }
 
     function toggleSpeed(id) {
@@ -284,15 +322,6 @@
         }
     }
 
-    function seekAudio(e, id) {
-        const audio = document.getElementById(`audio-${id}`);
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left; 
-        const width = rect.width;
-        const percentage = x / width;
-        audio.currentTime = percentage * audio.duration;
-    }
-
     function playAudio(id) {
         const audio = document.getElementById(`audio-${id}`);
         const allAudios = document.querySelectorAll('audio');
@@ -302,7 +331,7 @@
         allAudios.forEach((a, index) => {
             if (index !== id) {
                 a.pause(); a.currentTime = 0;
-                a.playbackRate = 1; // إعادة السرعة للوضع الطبيعي عند التغيير
+                a.playbackRate = 1;
                 document.getElementById(`speed-${index}`).innerText = "1x";
                 document.querySelectorAll('.play-btn i')[index].className = 'fas fa-play';
                 document.querySelectorAll(`#row-${index} .bar`).forEach(b => b.classList.remove('active'));
