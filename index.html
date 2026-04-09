@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart ERP | الدليل الصوتي</title>
+    <title>Smart ERP | الدليل الصوتي والمميزات</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -24,35 +24,48 @@
             margin: 0;
             padding: 0;
             color: var(--text-main);
+            line-height: 1.5; /* تحسين التباعد النصي */
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 15px; /* تقليل الهامش العلوي والسفلي */
             background: #fff;
             border-bottom: 1px solid #e9edef;
         }
 
-        .logo { font-size: 2.2rem; font-weight: 700; color: var(--wa-blue); }
-        h1 { font-size: 1.5rem; color: #075E54; margin: 10px 0; }
-        .subtitle { color: #667781; max-width: 600px; margin: 0 auto; font-size: 1rem; }
+        .logo { font-size: 2.2rem; font-weight: 700; color: var(--wa-blue); margin-bottom: 2px; }
+        h1 { font-size: 1.5rem; color: var(--btn-premium); margin: 5px 0; }
+        .subtitle { color: #667781; max-width: 650px; margin: 0 auto; font-size: 1rem; }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
+            max-width: 1150px; /* تضييق عرض الحاوية قليلاً للتوافق */
+            margin: 20px auto; /* تقليل الهامش الخارجي */
             padding: 0 15px;
         }
 
+        .section-title {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--btn-premium);
+            margin: 25px 0 15px; /* تقليل الهوامش حول العناوين */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .section-title i { color: var(--wa-blue); font-size: 1.2rem; }
+
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px; /* تقليل الفجوات بين البطاقات */
+            margin-bottom: 30px; /* تقليل الهامش السفلي */
         }
 
         .package-card {
             background: #fff;
-            border-radius: 20px;
+            border-radius: 15px; /* تنعيم الحواف قليلاً */
             border: 1.5px solid var(--border-gray);
             display: flex;
             flex-direction: column;
@@ -61,89 +74,133 @@
         }
 
         .package-card.recommended {
-            border: 2.5px solid var(--wa-green);
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.15);
-            transform: scale(1.02);
+            border: 2px solid var(--wa-green);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.1);
+            transform: scale(1.01); /* تقليل التكبير قليلاً */
         }
 
         .rec-tag {
             background: var(--wa-green);
             color: #fff;
             text-align: center;
-            padding: 8px;
+            padding: 6px; /* تقليل الحشوة */
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .card-content { padding: 25px; flex-grow: 1; }
-        .package-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
-        .package-desc { font-size: 0.9rem; color: #54656f; line-height: 1.6; margin-bottom: 25px; }
+        .card-content { padding: 18px; flex-grow: 1; } /* تقليل الحشوة الداخلية */
+        .package-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .package-desc { font-size: 0.85rem; color: #54656f; margin-bottom: 20px; min-height: 50px; }
 
         .audio-wrapper {
             background: #f8f9fa;
-            border-radius: 50px;
-            padding: 8px 15px;
+            border-radius: 40px; /* تنعيم الحواف */
+            padding: 6px 12px; /* تقليل الحشوة */
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .play-btn {
-            width: 44px;
-            height: 44px;
+            width: 38px; /* تصغير الأزرار قليلاً */
+            height: 38px;
             border-radius: 50%;
             background: var(--wa-blue);
             border: none;
             color: #fff;
             cursor: pointer;
-            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.9rem;
         }
 
         .waves-area {
             flex-grow: 1;
-            height: 20px;
+            height: 18px; /* تصغير الارتفاع */
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 2px;
+            gap: 1.5px;
             overflow: hidden;
             cursor: pointer;
-            touch-action: none;
         }
 
-        .bar { flex: 1; background: #d1d7db; height: 60%; border-radius: 1px; min-width: 2px; pointer-events: none; }
+        .bar { flex: 1; background: #d1d7db; height: 60%; border-radius: 1px; min-width: 1.5px; }
         .bar.active { background: var(--wa-blue); }
 
-        .time-left { 
-            font-size: 0.85rem; 
-            font-weight: 700; 
-            color: #4a5568; 
-            min-width: 40px; 
-            text-align: left;
-            font-variant-numeric: tabular-nums;
-        }
-
+        .time-left { font-size: 0.8rem; font-weight: 700; color: #4a5568; min-width: 35px; text-align: left; }
         .speed-btn {
-            background: #e2e8f0;
-            border: none;
-            border-radius: 12px;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #4a5568;
-            cursor: pointer;
-            min-width: 35px;
-            transition: 0.2s;
+            background: #e2e8f0; border: none; border-radius: 10px; padding: 3px 6px;
+            font-size: 0.7rem; font-weight: 700; cursor: pointer;
         }
-        .speed-btn:hover { background: #cbd5e0; }
 
-        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e9edef; background: #fff; }
+        .features-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px; /* تقليل الحشوة الداخلية */
+            margin-bottom: 25px;
+            border: 1px solid var(--border-gray);
+        }
 
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px; /* تقليل الفجوات */
+            margin-top: 15px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* تضييق المسافة بين الأيقونة والنص */
+            background: #fdfdfd;
+            padding: 8px 12px; /* تقليل الحشوة */
+            border-radius: 8px;
+            border: 1px solid #f0f2f5;
+            font-size: 0.85rem;
+        }
+        .feature-item i { color: var(--wa-green); font-size: 1rem; width: 18px; text-align: center; } /* أيقونات ثابتة العرض */
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px; /* تقليل الفجوات */
+            margin-top: 15px;
+        }
+
+        .module-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 10px 6px; /* تقليل الحشوة */
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px; /* تقليل الارتفاع الأدنى */
+        }
+        .module-tag:hover {
+            background: var(--btn-premium);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.8rem; background: #fff; border-top: 1px solid #e9edef; }
+        
         @media (max-width: 480px) {
-            .package-card.recommended { transform: scale(1); }
+            header { padding: 20px 10px; }
+            .container { margin: 10px auto; padding: 0 10px; }
+            .section-title { font-size: 1.2rem; margin: 15px 0 10px; }
+            .features-box { padding: 15px; }
+            .modules-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .features-list { grid-template-columns: 1fr; gap: 6px; }
+            .logo { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -151,12 +208,86 @@
 
 <header>
     <div class="logo">Smart ERP</div>
-    <h1>دليل صوتي لاختيار الباقة المناسبة</h1>
-    <p class="subtitle">استمع إلى المقاطع الصوتية، نلخص لك الفرق بين الباقات خلال أقل من دقيقة لتختار الأنسب لك بسهولة.</p>
+    <h1>النظام المحاسبي والإداري المتكامل</h1>
+    <p class="subtitle">استمع للدليل الصوتي لاختيار الباقة الأنسب واستكشف ميزاتنا الحصرية.</p>
 </header>
 
 <div class="container">
+    
+    <h2 class="section-title"><i class="fas fa-headphones-alt"></i> الدليل الصوتي للباقات</h2>
     <div class="packages-grid" id="grid"></div>
+
+    <div class="features-box">
+        <h2 class="section-title"><i class="fas fa-star"></i>الميزات العامة لجميع الباقات</h2>
+        <div class="features-list">
+            <div class="feature-item"><i class="fas fa-cloud"></i> نظام سحابي بمساحة لا محدودة.</div>
+            <div class="feature-item"><i class="fas fa-shield-alt"></i> أمن البيانات وحفظ الخصوصية.</div>
+            <div class="feature-item"><i class="fas fa-check-double"></i> متوافق مع هيئة الزكاة والضريبة.</div>
+            <div class="feature-item"><i class="fas fa-magic"></i> مرونة الواجهات وسهولة الاستخدام.</div>
+            <div class="feature-item"><i class="fas fa-desktop"></i> يعمل على جميع الأجهزة.</div>
+            <div class="feature-item"><i class="fas fa-laptop"></i> يعمل على جميع أنظمة التشغيل.</div>
+            <div class="feature-item"><i class="fas fa-headset"></i> دعم فني مجاني 24/7.</div>
+            <div class="feature-item"><i class="fas fa-sync-alt"></i> تحديثات مستمرة ومجانية.</div>
+            <div class="feature-item"><i class="fas fa-mobile-alt"></i> تطبيق جوال مجاني للمراقبة.</div>
+            <div class="feature-item"><i class="fas fa-boxes"></i> باقات متعددة لجميع الأنشطة.</div>
+            <div class="feature-item"><i class="fas fa-code"></i> متاح للتكامل عبر API.</div>
+            <div class="feature-item"><i class="fas fa-sitemap"></i> يدعم الفروع المتعددة.</div>
+            <div class="feature-item"><i class="fas fa-history"></i> مزامنة لحظية بين الفروع.</div>
+            <div class="feature-item"><i class="fas fa-chalkboard-teacher"></i> التدريب والتركيب مجاني.</div>
+            <div class="feature-item"><i class="fas fa-wifi"></i> واجهات كاشير أونلاين وأوفلاين.</div>
+            <div class="feature-item"><i class="fas fa-user-lock"></i> إدارة صلاحيات المستخدمين.</div>
+            <div class="feature-item"><i class="fas fa-chart-line"></i> تحليلات لحظية وتقارير اختيارية.</div>
+        </div>
+    </div>
+
+    <div class="features-box">
+        <h2 class="section-title"><i class="fas fa-cubes"></i>الموديولات والأدوات</h2>
+        <div class="modules-grid">
+            <div class="module-tag">النظام المحاسبي.</div>
+            <div class="module-tag">القوائم المالية.</div>
+            <div class="module-tag">التسوية البنكية.</div>
+            <div class="module-tag">إدارة المخزون.</div>
+            <div class="module-tag">التصنيع.</div>
+            <div class="module-tag">المقاولات.</div>
+            <div class="module-tag">إدارة المشاريع.</div>
+            <div class="module-tag">الموارد البشرية.</div>
+            <div class="module-tag">الأقساط.</div>
+            <div class="module-tag">نقاط البيع.</div>
+            <div class="module-tag">بطاقات هدية.</div>
+            <div class="module-tag">المبيعات.</div>
+            <div class="module-tag">عروض الأسعار.</div>
+            <div class="module-tag">المشتريات.</div>
+            <div class="module-tag">المرتجعات.</div>
+            <div class="module-tag">تحويل المخزون.</div>
+            <div class="module-tag">العروض والتخفيضات.</div>
+            <div class="module-tag">كوبونات الخصم.</div>
+            <div class="module-tag">نقاط العملاء.</div>
+            <div class="module-tag">التقارير المالية.</div>
+            <div class="module-tag">AI Reports.</div>
+            <div class="module-tag">التقارير الذكية.</div>
+            <div class="module-tag">التقارير الإحصائية.</div>
+            <div class="module-tag">ربط منصة زد.</div>
+            <div class="module-tag">ربط منصة سلة.</div>
+            <div class="module-tag">المطاعم.</div>
+            <div class="module-tag">المستخدمين.</div>
+            <div class="module-tag">مندوبي المبيعات.</div>
+            <div class="module-tag">الخدمات.</div>
+            <div class="module-tag">إعدادات النظام.</div>
+            <div class="module-tag">المتجر.</div>
+            <div class="module-tag">الرسائل.</div>
+            <div class="module-tag">القوالب.</div>
+            <div class="module-tag">العملاء.</div>
+            <div class="module-tag">الموردين.</div>
+            <div class="module-tag">الإشعارات.</div>
+            <div class="module-tag">التحديثات.</div>
+            <div class="module-tag">POS Desktop.</div>
+            <div class="module-tag">SmartERP Apps.</div>
+            <div class="module-tag">API Documentation.</div>
+            <div class="module-tag">Clear Server Cache.</div>
+            <div class="module-tag">معالج الاستيراد.</div>
+        </div>
+    </div>
+
 </div>
 
 <footer>
@@ -165,20 +296,18 @@
 
 <script>
     const data = [
-        { id: 0, name: "الباقة الأولى (MINI)", desc: "مناسبة للأنشطة الصغيرة التي تحتاج إصدار فواتير ضريبية مبسطة وإدارة مبيعات أساسية.", audio: "audio1.m4a", rec: false },
-        { id: 1, name: "الباقة الأساسية (POS)", desc: "مناسبة للمنشآت التي تحتاج نظام محاسبي مع إدارة المخزون ونقاط البيع والعملاء والموردين.", audio: "audio2.m4a", rec: true },
-        { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مناسبة للمنشآت المتوسطة والكبيرة تحتوي على كل ما هو متوفر في الباقة الأساسية مع حسابات متقدمة وقوائم مالية.", audio: "audio3.m4a", rec: false },
-        { id: 3, name: "الباقة الكاملة (PRO)", desc: "مناسبة للشركات التي تحتاج نظام متكامل يشمل المحاسبة والموارد البشرية وإدارة شاملة.", audio: "audio4.m4a", rec: false }
+        { id: 0, name: "الباقة الأولى (MINI)", desc: "مثالية للمشاريع الناشئة والخدمات التي تتطلب فواتير ضريبية مبسطة.", audio: "audio1.m4a", rec: false },
+        { id: 1, name: "الباقة الأساسية (POS)", desc: "الخيار الأمثل للمحلات التجارية والمطاعم مع إدارة كاملة للمخزون.", audio: "audio2.m4a", rec: true },
+        { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مصممة للشركات المتوسطة التي تحتاج تقارير مالية وقوائم جرد متقدمة.", audio: "audio3.m4a", rec: false },
+        { id: 3, name: "الباقة الكاملة (PRO)", desc: "حل متكامل يشمل المحاسبة، الموارد البشرية، وجميع مديولات النظام.", audio: "audio4.m4a", rec: false }
     ];
-
-    let isDragging = false;
 
     function render() {
         const grid = document.getElementById('grid');
         data.forEach(pkg => {
             let waves = "";
-            for(let i=0; i<45; i++) {
-                let h = Math.floor(Math.random() * 18) + 4;
+            for(let i=0; i<40; i++) {
+                let h = Math.floor(Math.random() * 16) + 4;
                 waves += `<div class="bar" style="height:${h}px"></div>`;
             }
 
@@ -191,14 +320,7 @@
                         <div class="audio-wrapper" id="row-${pkg.id}">
                             <audio id="audio-${pkg.id}" src="${pkg.audio}" preload="metadata"></audio>
                             <button class="play-btn" onclick="playAudio(${pkg.id})"><i class="fas fa-play"></i></button>
-                            <div class="waves-area" 
-                                 onmousedown="startDrag(event, ${pkg.id})" 
-                                 onmousemove="doDrag(event, ${pkg.id})" 
-                                 onmouseup="stopDrag()" 
-                                 onmouseleave="stopDrag()"
-                                 ontouchstart="startDrag(event, ${pkg.id})"
-                                 ontouchmove="doDrag(event, ${pkg.id})"
-                                 ontouchend="stopDrag()">
+                            <div class="waves-area" onclick="seekAudio(event, ${pkg.id})">
                                  ${waves}
                             </div>
                             <div class="time-left" id="time-${pkg.id}">0:00</div>
@@ -207,7 +329,7 @@
                     </div>
                 </div>
             `;
-
+            
             const audio = document.getElementById(`audio-${pkg.id}`);
             audio.addEventListener('loadedmetadata', () => {
                 document.getElementById(`time-${pkg.id}`).innerText = format(audio.duration);
@@ -215,58 +337,22 @@
         });
     }
 
-    function startDrag(e, id) {
-        isDragging = true;
-        seekAudio(e, id);
-    }
-
-    function doDrag(e, id) {
-        if (isDragging) seekAudio(e, id);
-    }
-
-    function stopDrag() {
-        isDragging = false;
-    }
-
-    function seekAudio(e, id) {
-        const audio = document.getElementById(`audio-${id}`);
-        if (!audio.duration) return;
-        const area = document.querySelector(`#row-${id} .waves-area`);
-        const rect = area.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-        const percentage = x / rect.width;
-        audio.currentTime = percentage * audio.duration;
-    }
-
     function toggleSpeed(id) {
         const audio = document.getElementById(`audio-${id}`);
-        const speedBtn = document.getElementById(`speed-${id}`);
-        if (audio.playbackRate === 1) {
-            audio.playbackRate = 2;
-            speedBtn.innerText = "2x";
-            speedBtn.style.color = "var(--wa-blue)";
-        } else {
-            audio.playbackRate = 1;
-            speedBtn.innerText = "1x";
-            speedBtn.style.color = "#4a5568";
-        }
+        const btn = document.getElementById(`speed-${id}`);
+        audio.playbackRate = audio.playbackRate === 1 ? 2 : 1;
+        btn.innerText = audio.playbackRate + "x";
     }
 
     function playAudio(id) {
         const audio = document.getElementById(`audio-${id}`);
-        const allAudios = document.querySelectorAll('audio');
         const btnIcon = document.querySelector(`#row-${id} .play-btn i`);
-        const bars = document.querySelectorAll(`#row-${id} .bar`);
-
-        allAudios.forEach((a, index) => {
-            if (index !== id) {
-                a.pause(); a.currentTime = 0;
-                a.playbackRate = 1;
-                document.getElementById(`speed-${index}`).innerText = "1x";
-                document.querySelectorAll('.play-btn i')[index].className = 'fas fa-play';
-                document.querySelectorAll(`#row-${index} .bar`).forEach(b => b.classList.remove('active'));
-                if(!isNaN(a.duration)) document.getElementById(`time-${index}`).innerText = format(a.duration);
+        const allAudios = document.querySelectorAll('audio');
+        
+        allAudios.forEach((a, idx) => {
+            if (idx !== id) {
+                a.pause();
+                document.querySelectorAll('.play-btn i')[idx].className = 'fas fa-play';
             }
         });
 
@@ -279,21 +365,15 @@
         }
 
         audio.ontimeupdate = () => {
-            const rem = Math.max(0, audio.duration - audio.currentTime);
+            const rem = audio.duration - audio.currentTime;
             document.getElementById(`time-${id}`).innerText = format(rem);
-            const progress = (audio.currentTime / audio.duration) * bars.length;
-            bars.forEach((b, i) => b.classList.toggle('active', i < progress));
-        };
-
-        audio.onended = () => {
-            btnIcon.className = 'fas fa-play';
-            bars.forEach(b => b.classList.remove('active'));
-            document.getElementById(`time-${id}`).innerText = format(audio.duration);
+            const progress = (audio.currentTime / audio.duration) * 40;
+            document.querySelectorAll(`#row-${id} .bar`).forEach((b, i) => b.classList.toggle('active', i < progress));
         };
     }
 
     function format(s) {
-        if (isNaN(s) || s === Infinity) return "0:00";
+        if (isNaN(s)) return "0:00";
         let m = Math.floor(s / 60);
         let sec = Math.floor(s % 60);
         return `${m}:${sec < 10 ? '0' : ''}${sec}`;
