@@ -323,8 +323,9 @@
     ];
 
     function buildWaLink(pkg) {
-        const pageUrl = window.location.href.split('?')[0];
-        const msg = `مرحباً 👋\nأود الاستفسار عن *${pkg.name}*\n${pkg.desc}\n\n🔗 ${pageUrl}`;
+        const base = 'https://abojeyad.github.io/erp/';
+        const audioUrl = base + pkg.audio;
+        const msg = `مرحباً 👋\nأود الاستفسار عن *${pkg.name}*\n${pkg.desc}\n\n🎧 استمع للتفاصيل:\n${audioUrl}`;
         return `https://wa.me/?text=${encodeURIComponent(msg)}`;
     }
 
