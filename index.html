@@ -79,18 +79,9 @@
             transform: scale(1.01); /* تقليل التكبير قليلاً */
         }
 
-        .rec-tag {
-            background: var(--wa-green);
-            color: #fff;
-            text-align: center;
-            padding: 6px; /* تقليل الحشوة */
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        .card-content { padding: 18px; flex-grow: 1; } /* تقليل الحشوة الداخلية */
-        .package-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-        .package-desc { font-size: 0.85rem; color: #54656f; margin-bottom: 20px; min-height: 50px; }
+        .card-content { padding: 20px 20px 16px; flex-grow: 1; }
+        .package-name { font-size: 1.1rem; font-weight: 700; margin: 0 0 6px; }
+        .package-desc { font-size: 0.85rem; color: #54656f; margin: 0 0 16px; min-height: 44px; }
 
         .audio-wrapper {
             background: #f8f9fa;
@@ -189,6 +180,34 @@
             color: #fff;
             transform: translateY(-2px);
         }
+
+        .wa-share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 14px 18px 18px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #25D366 0%, #1aab55 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25);
+            letter-spacing: 0.3px;
+        }
+        .wa-share-btn:hover {
+            background: linear-gradient(135deg, #1aab55 0%, #158f46 100%);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+        .wa-share-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3); }
+        .wa-share-btn i { font-size: 1.1rem; }
 
         footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.8rem; background: #fff; border-top: 1px solid #e9edef; }
         
@@ -303,6 +322,12 @@
         { id: 3, name: "الباقة الكاملة (PRO)", desc: "حل متكامل يشمل المحاسبة، الموارد البشرية، وجميع مديولات النظام.", audio: "audio4.m4a", rec: false }
     ];
 
+    function buildWaLink(pkg) {
+        const pageUrl = window.location.href.split('?')[0];
+        const msg = `مرحباً 👋\nأود الاستفسار عن *${pkg.name}*\n${pkg.desc}\n\n🔗 ${pageUrl}`;
+        return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    }
+
     function render() {
         const grid = document.getElementById('grid');
         data.forEach(pkg => {
@@ -314,7 +339,6 @@
 
             grid.innerHTML += `
                 <div class="package-card ${pkg.rec ? 'recommended' : ''}">
-                    ${pkg.rec ? '<div class="rec-tag"><i class="fas fa-thumbs-up"></i> الخيار الموصى به</div>' : ''}
                     <div class="card-content">
                         <div class="package-name">${pkg.name}</div>
                         <p class="package-desc">${pkg.desc}</p>
@@ -328,6 +352,9 @@
                             <button class="speed-btn" id="speed-${pkg.id}" onclick="toggleSpeed(${pkg.id})">1x</button>
                         </div>
                     </div>
+                    <a class="wa-share-btn" href="${buildWaLink(pkg)}" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i> مشاركة عبر واتساب
+                    </a>
                 </div>
             `;
             
