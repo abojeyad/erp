@@ -209,6 +209,124 @@
         .wa-share-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3); }
         .wa-share-btn i { font-size: 1.1rem; }
 
+
+        /* ===== Video Cards ===== */
+        .video-card {
+            background: #fff;
+            border-radius: 15px;
+            border: 1.5px solid var(--border-gray);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+        .video-card.recommended {
+            border: 2px solid var(--wa-green);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.12);
+        }
+        .video-wrapper {
+            position: relative;
+            background: #000;
+            border-radius: 0;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.35);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .video-overlay:hover { background: rgba(0,0,0,0.2); }
+        .video-overlay.hidden { display: none; }
+        .video-play-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--btn-premium);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .video-overlay:hover .video-play-btn { transform: scale(1.1); }
+        .video-card .card-content { padding: 16px 20px 12px; flex-grow: 1; }
+
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-inner {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .lightbox-inner video {
+            width: 100%;
+            display: block;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+        /* No video state */
+        .no-video {
+            aspect-ratio: 16/9;
+            background: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #94a3b8;
+        }
+        .no-video i { font-size: 2rem; }
+        .no-video span { font-size: 0.82rem; font-weight: 500; }
+
         footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.8rem; background: #fff; border-top: 1px solid #e9edef; }
         
         @media (max-width: 480px) {
@@ -235,6 +353,10 @@
     
     <h2 class="section-title"><i class="fas fa-headphones-alt"></i> الدليل الصوتي للباقات</h2>
     <div class="packages-grid" id="grid"></div>
+
+    <h2 class="section-title"><i class="fas fa-film"></i> الدليل المرئي للباقات</h2>
+    <div class="packages-grid" id="video-grid"></div>
+
 
     <div class="features-box">
         <h2 class="section-title"><i class="fas fa-star"></i>الميزات العامة لجميع الباقات</h2>
@@ -316,10 +438,10 @@
 
 <script>
     const data = [
-        { id: 0, name: "الباقة الأولى (MINI)", desc: "مثالية للمشاريع الناشئة والخدمات التي تتطلب فواتير ضريبية مبسطة.", audio: "audio1.m4a", rec: false },
-        { id: 1, name: "الباقة الأساسية (POS)", desc: "الخيار الأمثل للمحلات التجارية والمطاعم مع إدارة كاملة للمخزون.", audio: "audio2.m4a", rec: true },
-        { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مصممة للشركات المتوسطة التي تحتاج تقارير مالية وقوائم جرد متقدمة.", audio: "audio3.m4a", rec: false },
-        { id: 3, name: "الباقة الكاملة (PRO)", desc: "حل متكامل يشمل المحاسبة، الموارد البشرية، وجميع مديولات النظام.", audio: "audio4.m4a", rec: false }
+        { id: 0, name: "الباقة الأولى (MINI)", desc: "مثالية للمشاريع الناشئة والخدمات التي تتطلب فواتير ضريبية مبسطة.", audio: "audio1.m4a", video: "video1.mp4", rec: false },
+        { id: 1, name: "الباقة الأساسية (POS)", desc: "الخيار الأمثل للمحلات التجارية والمطاعم مع إدارة كاملة للمخزون.", audio: "audio2.m4a", video: "video2.mp4", rec: true },
+        { id: 2, name: "الباقة المتقدمة (SLAS)", desc: "مصممة للشركات المتوسطة التي تحتاج تقارير مالية وقوائم جرد متقدمة.", audio: "audio3.m4a", video: "video3.mp4", rec: false },
+        { id: 3, name: "الباقة الكاملة (PRO)", desc: "حل متكامل يشمل المحاسبة، الموارد البشرية، وجميع مديولات النظام.", audio: "audio4.m4a", video: "video4.mp4", rec: false }
     ];
 
     function buildWaLink(pkg) {
@@ -328,6 +450,105 @@
         const msg = `مرحباً 👋\nأود الاستفسار عن *${pkg.name}*\n${pkg.desc}\n\n🎧 استمع للتفاصيل:\n${audioUrl}`;
         return `https://wa.me/?text=${encodeURIComponent(msg)}`;
     }
+
+
+    function buildWaVideoLink(pkg) {
+        const base = 'https://abojeyad.github.io/erp/';
+        const videoUrl = base + pkg.video;
+        const msg = `مرحباً 👋\nأود مشاهدة عرض *${pkg.name}*\n${pkg.desc}\n\n🎬 شاهد الفيديو التعريفي:\n${videoUrl}`;
+        return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    }
+
+    function renderVideos() {
+        const grid = document.getElementById('video-grid');
+        data.forEach(pkg => {
+            const hasVideoName = pkg.video && pkg.video.trim() !== '';
+            const cardId = `vcard-${pkg.id}`;
+
+            if (!hasVideoName) {
+                grid.innerHTML += `<div class="video-card ${pkg.rec ? 'recommended' : ''}" id="${cardId}"></div>`;
+                renderNoVideo(document.getElementById(cardId), pkg);
+                return;
+            }
+
+            // Render card with video — onerror will swap to no-video state if file missing
+            grid.innerHTML += `
+                <div class="video-card ${pkg.rec ? 'recommended' : ''}" id="${cardId}">
+                    <div class="video-wrapper" id="vwrap-${pkg.id}" onclick="openLightbox('${pkg.video}')" style="cursor:pointer">
+                        <video id="vthumb-${pkg.id}" src="${pkg.video}#t=0.5" preload="metadata" playsinline muted
+                            style="pointer-events:none; width:100%; height:100%; object-fit:cover; display:block;"
+                            onerror="swapToNoVideo(${pkg.id})"></video>
+                        <div class="video-overlay">
+                            <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="package-name">${pkg.name}</div>
+                        <p class="package-desc" style="margin-bottom:0">${pkg.desc}</p>
+                    </div>
+                    <a class="wa-share-btn" id="vbtn-${pkg.id}" href="${buildWaVideoLink(pkg)}" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i> مشاركة الفيديو
+                    </a>
+                </div>
+            `;
+        });
+    }
+
+    function swapToNoVideo(id) {
+        const wrap = document.getElementById(`vwrap-${id}`);
+        if (!wrap) return;
+        wrap.removeAttribute('onclick');
+        wrap.style.cursor = 'default';
+        wrap.innerHTML = `
+            <div class="no-video" style="width:100%;height:100%">
+                <i class="fas fa-video-slash"></i>
+                <span>لا يتوفر فيديو لهذه الباقة</span>
+            </div>`;
+        const btn = document.getElementById(`vbtn-${id}`);
+        if (btn) {
+            btn.removeAttribute('href');
+            btn.removeAttribute('target');
+            btn.style.cssText = 'background:#cbd5e1;box-shadow:none;cursor:default;pointer-events:none';
+            btn.innerHTML = '<i class="fas fa-video-slash"></i> لا يتوفر فيديو';
+        }
+    }
+
+    function renderNoVideo(card, pkg) {
+        card.innerHTML = `
+            <div class="no-video">
+                <i class="fas fa-video-slash"></i>
+                <span>لا يتوفر فيديو لهذه الباقة</span>
+            </div>
+            <div class="card-content">
+                <div class="package-name">${pkg.name}</div>
+                <p class="package-desc" style="margin-bottom:0">${pkg.desc}</p>
+            </div>
+            <div class="wa-share-btn" style="background:#cbd5e1;box-shadow:none;cursor:default;pointer-events:none">
+                <i class="fas fa-video-slash"></i> لا يتوفر فيديو
+            </div>
+        `;
+    }
+
+    function openLightbox(src) {
+        const lb = document.getElementById('lightbox');
+        const vid = document.getElementById('lightbox-video');
+        vid.src = src;
+        vid.play();
+        lb.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+        if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lightbox-close')) return;
+        const lb = document.getElementById('lightbox');
+        const vid = document.getElementById('lightbox-video');
+        vid.pause();
+        vid.src = '';
+        lb.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+
 
     function render() {
         const grid = document.getElementById('grid');
@@ -408,8 +629,17 @@
         return `${m}:${sec < 10 ? '0' : ''}${sec}`;
     }
 
-    window.onload = render;
+    window.onload = () => { render(); renderVideos(); };
 </script>
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-inner">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <video id="lightbox-video" controls playsinline></video>
+    </div>
+</div>
 
 </body>
 </html>
